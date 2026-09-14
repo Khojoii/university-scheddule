@@ -2,9 +2,6 @@
 
 A single-file, fast, fully offline web page for displaying a weekly class schedule — no framework, no build step, no backend required. Just one `index.html` file with everything (code, styles, logo) embedded inside it.
 
-🔗 **Demo:** once deployed on GitHub Pages, the link will look like:
-`https://<username>.github.io/<repo-name>/`
-
 ---
 
 ## ✨ Features
