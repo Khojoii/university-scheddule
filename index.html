@@ -8,6 +8,7 @@
   @import url('https://cdnjs.cloudflare.com/ajax/libs/vazirmatn/33.0.3/Vazirmatn-font-face.css');
 
   :root {
+    --page-bg: #f2f6fb;
     --navy: #0c2f5e;
     --navy-2: #143f7a;
     --blue: #2f6fce;
@@ -17,14 +18,25 @@
     --muted: #6b7a8d;
     --gold: #c9922c;
     --paper: #ffffff;
+    --accent-text: #0c2f5e;
+  }
+  body.dark {
+    --page-bg: #0a121f;
+    --ice: #17233a;
+    --line: #263652;
+    --ink: #e7edf8;
+    --muted: #93a1b8;
+    --paper: #111b2c;
+    --accent-text: #6ea8fe;
   }
   * { box-sizing: border-box; }
   html, body {
     margin: 0; padding: 0;
-    background: #f2f6fb;
+    background: var(--page-bg);
     font-family: 'Vazirmatn', 'Tahoma', sans-serif;
     color: var(--ink);
     direction: rtl;
+    transition: background 0.3s ease, color 0.3s ease;
   }
   body { min-height: 100vh; position: relative; overflow-x: hidden; }
   #netbg { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.45; }
@@ -43,29 +55,39 @@
     box-shadow: 0 18px 40px -18px rgba(12,47,94,0.55);
     opacity: 0; transform: translateY(-14px);
     animation: dropIn 0.55s cubic-bezier(.22,.9,.35,1) 0.05s forwards;
+    position: relative;
   }
   .header img { width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); }
   .header-text h1 { margin: 0 0 3px 0; font-size: 18px; font-weight: 700; color: #fff; }
   .header-text p { margin: 0; font-size: 12.5px; color: #c3d5ef; }
   @keyframes dropIn { to { opacity: 1; transform: translateY(0); } }
 
-  /* Exam banner */
-  .banner {
+  .theme-toggle {
+    margin-inline-start: auto;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .theme-toggle:hover { background: rgba(255,255,255,0.24); transform: scale(1.06); }
+
+  /* Live date/time box */
+  .datebox {
     margin-top: 14px;
-    display: flex; align-items: center; gap: 12px;
-    background: #fff7e9;
-    border: 1px solid #f0dcae;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--paper);
+    border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 12px 16px;
-    opacity: 0; animation: fadeIn 0.5s ease 0.2s forwards;
+    padding: 11px 16px;
+    opacity: 0; animation: fadeIn 0.5s ease 0.18s forwards;
   }
-  .banner .dot {
-    width: 9px; height: 9px; border-radius: 50%;
-    background: var(--gold); flex-shrink: 0;
-    box-shadow: 0 0 0 4px rgba(201,146,44,0.18);
-  }
-  .banner .txt { font-size: 12.5px; color: #6b5423; }
-  .banner .txt b { color: #8a6a1f; }
+  .datebox .d-date { font-size: 13px; font-weight: 700; color: var(--accent-text); font-variant-numeric: tabular-nums; }
+  .datebox .d-day { font-size: 12px; color: var(--muted); }
+  .datebox .d-sep { width: 1px; height: 16px; background: var(--line); }
+  .datebox .d-time { font-size: 14px; font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; letter-spacing: 0.5px; }
   @keyframes fadeIn { to { opacity: 1; } }
 
   /* Stats */
@@ -78,7 +100,7 @@
     background: var(--paper); border: 1px solid var(--line);
     border-radius: 14px; padding: 12px 10px; text-align: center;
   }
-  .stat .num { font-size: 18px; font-weight: 700; color: var(--navy); display: block; }
+  .stat .num { font-size: 18px; font-weight: 700; color: var(--accent-text); display: block; }
   .stat .lbl { font-size: 10.5px; color: var(--muted); margin-top: 2px; display: block; }
 
   /* Day tabs */
@@ -88,16 +110,17 @@
   }
   .tab {
     flex: 1 1 auto;
-    padding: 9px 14px;
+    padding: 9px 12px;
     border-radius: 999px;
     border: 1px solid var(--line);
     background: var(--paper);
     color: var(--muted);
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     text-align: center;
     position: relative;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
     white-space: nowrap;
   }
@@ -109,16 +132,18 @@
     box-shadow: 0 8px 18px -8px rgba(12,47,94,0.5);
   }
   .tab .badge {
-    display: inline-block;
-    margin-inline-start: 5px;
-    font-size: 10px;
-    opacity: 0.75;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 19px; height: 19px; padding: 0 5px;
+    border-radius: 999px;
+    font-size: 10.5px; font-weight: 700;
+    background: var(--gold); color: #fff;
   }
+  .tab.active .badge { background: rgba(255,255,255,0.9); color: var(--navy); }
   .tab .today-mark {
     position: absolute; top: -4px; left: -4px;
     width: 8px; height: 8px; border-radius: 50%;
     background: #e0524b;
-    border: 2px solid #f2f6fb;
+    border: 2px solid var(--page-bg);
   }
 
   /* Timeline */
@@ -134,18 +159,22 @@
     opacity: 0; transform: translateY(10px);
     animation: itemIn 0.4s cubic-bezier(.22,1,.4,1) forwards;
   }
-  .t-item:last-child { padding-bottom: 0; }
+  .t-item.no-gap-bottom { padding-bottom: 4px; }
+  .t-item.no-line-bottom { padding-bottom: 0; }
   @keyframes itemIn { to { opacity: 1; transform: translateY(0); } }
 
   .t-rail { display: flex; flex-direction: column; align-items: center; width: 14px; flex-shrink: 0; }
   .t-dot {
     width: 13px; height: 13px; border-radius: 50%;
-    border: 3px solid #fff;
+    border: 3px solid var(--page-bg);
+    background: var(--paper);
     box-shadow: 0 0 0 2px currentColor;
     margin-top: 4px; flex-shrink: 0;
+    transition: background 0.2s ease;
   }
+  .t-dot.filled { background: currentColor; }
   .t-line { flex: 1; width: 2px; background: var(--line); margin-top: 4px; }
-  .t-item:last-child .t-line { display: none; }
+  .t-line.linked { width: 3px; background: var(--gold); }
 
   .t-card {
     flex: 1;
@@ -173,13 +202,27 @@
     display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
   }
   .t-card .meta .dur {
-    background: var(--ice); color: var(--navy);
+    background: var(--ice); color: var(--accent-text);
     padding: 2px 8px; border-radius: 999px; font-size: 10.5px; font-weight: 600;
   }
 
-  /* Modal (same pattern as before) */
+  /* Idle-time slim tile */
+  .idle-item { padding-bottom: 10px; }
+  .idle-item .t-line { background: var(--line); }
+  .idle-tile {
+    flex: 1;
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    padding: 5px 12px;
+    font-size: 11px;
+    color: var(--muted);
+    background: transparent;
+    display: flex; align-items: center;
+  }
+
+  /* Modal */
   .overlay {
-    position: fixed; inset: 0; background: rgba(12,25,45,0.45);
+    position: fixed; inset: 0; background: rgba(6,14,26,0.5);
     backdrop-filter: blur(3px);
     display: flex; align-items: center; justify-content: center;
     z-index: 50; opacity: 0; pointer-events: none;
@@ -188,14 +231,14 @@
   .overlay.show { opacity: 1; pointer-events: auto; }
   .modal {
     background: var(--paper); border-radius: 18px; width: 100%; max-width: 380px;
-    padding: 26px 24px 22px 24px; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.4);
+    padding: 26px 24px 22px 24px; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.5);
     transform: translateY(18px) scale(0.97);
     transition: transform 0.3s cubic-bezier(.22,1.1,.4,1);
     position: relative;
   }
   .overlay.show .modal { transform: translateY(0) scale(1); }
   .modal .bar { position: absolute; top: 0; right: 0; left: 0; height: 5px; border-radius: 18px 18px 0 0; }
-  .modal h2 { margin: 10px 0 2px 0; font-size: 17px; color: var(--navy); }
+  .modal h2 { margin: 10px 0 2px 0; font-size: 17px; color: var(--accent-text); }
   .modal .sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
   .modal-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 13px; }
   .modal-row:first-of-type { border-top: none; }
@@ -204,27 +247,27 @@
   .modal-row .v.exam { color: var(--gold); }
   .close-btn {
     position: absolute; top: 14px; left: 14px; width: 28px; height: 28px; border-radius: 50%;
-    border: none; background: var(--ice); color: var(--navy); font-size: 14px; cursor: pointer;
+    border: none; background: var(--ice); color: var(--accent-text); font-size: 14px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     transition: background 0.15s ease, transform 0.15s ease;
   }
-  .close-btn:hover { background: #dfe9f7; transform: rotate(90deg); }
+  .close-btn:hover { background: var(--line); transform: rotate(90deg); }
 
   .footer-row {
     display: flex; align-items: center; justify-content: center; gap: 14px;
     margin-top: 24px;
   }
   .print-btn {
-    border: 1px solid var(--line); background: var(--paper); color: var(--navy);
+    border: 1px solid var(--line); background: var(--paper); color: var(--accent-text);
     font-size: 12px; font-weight: 600; padding: 8px 16px; border-radius: 999px;
     cursor: pointer; display: flex; align-items: center; gap: 6px;
     transition: background 0.15s ease, transform 0.15s ease;
   }
   .print-btn:hover { background: var(--ice); transform: translateY(-1px); }
-  .footer { text-align: center; font-size: 11px; color: #9aabc0; margin-top: 10px; }
+  .footer { text-align: center; font-size: 11px; color: var(--muted); margin-top: 10px; }
 
   @media print {
-    #netbg, .banner, .tabs, .print-btn { display: none !important; }
+    #netbg, .tabs, .print-btn, .theme-toggle { display: none !important; }
     body { background: #fff; }
   }
 </style>
@@ -239,11 +282,14 @@
       <h1>برنامه هفتگی کلاس‌ها</h1>
       <p>دانشکده دادبین کرمان &middot; دانشگاه ملی مهارت</p>
     </div>
+    <button class="theme-toggle" id="themeToggle" title="تغییر تم">🌙</button>
   </div>
 
-  <div class="banner" id="examBanner">
-    <div class="dot"></div>
-    <div class="txt" id="examBannerText"></div>
+  <div class="datebox" id="dateBox">
+    <span class="d-date" id="dDate"></span>
+    <span class="d-day" id="dDay"></span>
+    <span class="d-sep"></span>
+    <span class="d-time" id="dTime"></span>
   </div>
 
   <div class="stats" id="statsBar"></div>
@@ -267,6 +313,7 @@
     <div class="modal-row"><div class="k">استاد</div><div class="v" id="mTeacher"></div></div>
     <div class="modal-row"><div class="k">زمان کلاس</div><div class="v" id="mTime"></div></div>
     <div class="modal-row"><div class="k">دانشکده</div><div class="v" id="mFaculty"></div></div>
+    <div class="modal-row"><div class="k">واحد</div><div class="v" id="mUnits"></div></div>
     <div class="modal-row"><div class="k">تاریخ امتحان</div><div class="v exam" id="mExamDate"></div></div>
     <div class="modal-row"><div class="k">ساعت امتحان</div><div class="v exam" id="mExamTime"></div></div>
   </div>
@@ -277,47 +324,44 @@ const DAYS = ["شنبه","یک‌شنبه","دوشنبه","سه‌شنبه","چ�
 const FACULTY = "پسران شهید دادبین کرمان";
 
 const COURSES = [
-  {name:"نرم‌افزارهای کاربردی شبکه", day:"شنبه", start:"09:30", end:"12:30", teacher:"امین عرفان", exam:"طبق اعلام مدرس", examTime:"—", examSort:null, color:"#2f6fce"},
-  {name:"مستندسازی شبکه", day:"شنبه", start:"15:30", end:"17:30", teacher:"احسان راد", exam:"۱۴۰۵/۱۰/۲۳", examTime:"۱۰:۳۰", examSort:"1405/10/23", color:"#0c2f5e"},
-  {name:"ارائه‌دهنده خدمات اینترنت", day:"شنبه", start:"17:30", end:"19:30", teacher:"احسان راد", exam:"۱۴۰۵/۱۰/۲۴", examTime:"۰۸:۰۰", examSort:"1405/10/24", color:"#3f8f6f"},
-  {name:"مباحث ویژه در شبکه", day:"یک‌شنبه", start:"07:30", end:"11:30", teacher:"امین عرفان", exam:"۱۴۰۵/۱۰/۱۹", examTime:"۱۰:۳۰", examSort:"1405/10/19", color:"#2f6fce"},
-  {name:"پیکربندی سرورهای شبکه", day:"یک‌شنبه", start:"13:30", end:"17:30", teacher:"مجید قندهاری‌پور", exam:"۱۴۰۵/۱۰/۲۸", examTime:"۰۸:۰۰", examSort:"1405/10/28", color:"#8a5fb0"},
-  {name:"زبان فارسی", day:"دوشنبه", start:"07:30", end:"10:30", teacher:"حمید سلاجقه", exam:"۱۴۰۵/۱۰/۲۱", examTime:"۰۸:۰۰", examSort:"1405/10/21", color:"#c9922c"},
-  {name:"دانش خانواده و جمعیت", day:"دوشنبه", start:"11:30", end:"13:30", teacher:"سید مهدی اسدی خانوکی", exam:"۱۴۰۵/۱۰/۱۹", examTime:"۰۸:۰۰", examSort:"1405/10/19", color:"#b0555f"},
-  {name:"محیط‌های چندرسانه‌ای", day:"دوشنبه", start:"15:30", end:"19:30", teacher:"احسان راد", exam:"۱۴۰۵/۱۰/۲۰", examTime:"۱۰:۳۰", examSort:"1405/10/20", color:"#3f8f6f"},
-  {name:"راه‌اندازی شبکه‌های محلی", day:"سه‌شنبه", start:"11:30", end:"15:30", teacher:"حامد حسین‌آبادی", exam:"۱۴۰۵/۱۰/۲۷", examTime:"۱۰:۳۰", examSort:"1405/10/27", color:"#2f6fce"},
-  {name:"ماشین مجازی", day:"چهارشنبه", start:"14:30", end:"17:30", teacher:"مجید قندهاری‌پور", exam:"۱۴۰۵/۱۰/۲۹", examTime:"۱۰:۳۰", examSort:"1405/10/29", color:"#8a5fb0"},
+  {name:"نرم‌افزارهای کاربردی شبکه", day:"شنبه", start:"09:30", end:"12:30", teacher:"امین عرفان", exam:"1405/10/19", examTime:"—", units:1, color:"#2f6fce"},
+  {name:"مستندسازی شبکه", day:"شنبه", start:"15:30", end:"17:30", teacher:"احسان راد", exam:"1405/10/23", examTime:"10:30", units:2, color:"#0c2f5e"},
+  {name:"ارائه‌دهنده خدمات اینترنت", day:"شنبه", start:"17:30", end:"19:30", teacher:"احسان راد", exam:"1405/10/24", examTime:"08:00", units:2, color:"#3f8f6f"},
+  {name:"مباحث ویژه در شبکه", day:"یک‌شنبه", start:"07:30", end:"11:30", teacher:"امین عرفان", exam:"1405/10/19", examTime:"10:30", units:2, color:"#2f6fce"},
+  {name:"پیکربندی سرورهای شبکه", day:"یک‌شنبه", start:"13:30", end:"17:30", teacher:"مجید قندهاری‌پور", exam:"1405/10/28", examTime:"08:00", units:2, color:"#8a5fb0"},
+  {name:"زبان فارسی", day:"دوشنبه", start:"07:30", end:"10:30", teacher:"حمید سلاجقه", exam:"1405/10/21", examTime:"08:00", units:3, color:"#c9922c"},
+  {name:"دانش خانواده و جمعیت", day:"دوشنبه", start:"11:30", end:"13:30", teacher:"سید مهدی اسدی خانوکی", exam:"1405/10/19", examTime:"08:00", units:2, color:"#b0555f"},
+  {name:"محیط‌های چندرسانه‌ای", day:"دوشنبه", start:"15:30", end:"19:30", teacher:"احسان راد", exam:"1405/10/20", examTime:"10:30", units:2, color:"#3f8f6f"},
+  {name:"راه‌اندازی شبکه‌های محلی", day:"سه‌شنبه", start:"11:30", end:"15:30", teacher:"حامد حسین‌آبادی", exam:"1405/10/27", examTime:"10:30", units:3, color:"#2f6fce"},
+  {name:"ماشین مجازی", day:"چهارشنبه", start:"14:30", end:"17:30", teacher:"مجید قندهاری‌پور", exam:"1405/10/29", examTime:"10:30", units:2, color:"#8a5fb0"},
 ];
 
-function durationHours(start, end) {
-  const [sh, sm] = start.split(":").map(Number);
-  const [eh, em] = end.split(":").map(Number);
-  return ((eh * 60 + em) - (sh * 60 + sm)) / 60;
+function toMinutes(t) { const [h,m] = t.split(":").map(Number); return h*60+m; }
+function durationHours(start, end) { return (toMinutes(end) - toMinutes(start)) / 60; }
+function formatGap(mins) {
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  const parts = [];
+  if (h > 0) parts.push(h + ' ساعت');
+  if (m > 0) parts.push(m + ' دقیقه');
+  return parts.join(' و ');
 }
-
-// ---- Exam banner: earliest exam date among courses that have one
-const withExam = COURSES.filter(c => c.examSort);
-withExam.sort((a, b) => a.examSort.localeCompare(b.examSort));
-const nearest = withExam[0];
-document.getElementById('examBannerText').innerHTML =
-  'نزدیک‌ترین امتحان ترم: <b>' + nearest.name + '</b> — ' + nearest.exam + ' ساعت ' + nearest.examTime;
 
 // ---- Stats bar
 const totalClasses = COURSES.length;
 const totalHours = COURSES.reduce((s, c) => s + durationHours(c.start, c.end), 0);
+const totalUnits = COURSES.reduce((s, c) => s + c.units, 0);
 const perDay = {};
 DAYS.forEach(d => perDay[d] = COURSES.filter(c => c.day === d).length);
-const busiestDay = Object.entries(perDay).sort((a, b) => b[1] - a[1])[0][0];
 
-const statsBar = document.getElementById('statsBar');
-statsBar.innerHTML = `
+document.getElementById('statsBar').innerHTML = `
   <div class="stat"><span class="num">${totalClasses}</span><span class="lbl">درس این ترم</span></div>
   <div class="stat"><span class="num">${totalHours}</span><span class="lbl">ساعت کلاس در هفته</span></div>
-  <div class="stat"><span class="num">${busiestDay}</span><span class="lbl">شلوغ‌ترین روز</span></div>
+  <div class="stat"><span class="num">${totalUnits}</span><span class="lbl">واحد انتخابی</span></div>
 `;
 
-// ---- Today detection (map JS weekday to Persian week)
-const jsDay = new Date().getDay(); // 0=Sun..6=Sat
+// ---- Today detection
+const jsDay = new Date().getDay();
 const jsToFa = {6:"شنبه", 0:"یک‌شنبه", 1:"دوشنبه", 2:"سه‌شنبه", 3:"چهارشنبه"};
 const todayFa = jsToFa[jsDay] || null;
 
@@ -330,7 +374,7 @@ function renderTabs() {
   DAYS.forEach(d => {
     const btn = document.createElement('div');
     btn.className = 'tab' + (d === activeDay ? ' active' : '');
-    btn.innerHTML = d + '<span class="badge">' + perDay[d] + '</span>';
+    btn.innerHTML = '<span>' + d + '</span><span class="badge">' + perDay[d] + '</span>';
     if (d === todayFa) {
       const mark = document.createElement('div');
       mark.className = 'today-mark';
@@ -345,26 +389,38 @@ function renderTabs() {
 const timelineEl = document.getElementById('timeline');
 function renderTimeline() {
   timelineEl.innerHTML = '';
-  const dayCourses = COURSES.filter(c => c.day === activeDay)
-    .sort((a, b) => a.start.localeCompare(b.start));
+  const dayCourses = COURSES.filter(c => c.day === activeDay).sort((a, b) => a.start.localeCompare(b.start));
 
   if (dayCourses.length === 0) {
     timelineEl.innerHTML = '<div class="empty-day">این روز کلاسی نداری 🎉</div>';
     return;
   }
 
+  const n = dayCourses.length;
+  const gaps = [];
+  for (let i = 0; i < n - 1; i++) {
+    gaps.push(toMinutes(dayCourses[i + 1].start) - toMinutes(dayCourses[i].end));
+  }
+  const dotFilled = dayCourses.map((_, i) =>
+    (i > 0 && gaps[i - 1] === 0) || (i < n - 1 && gaps[i] === 0)
+  );
+
   dayCourses.forEach((c, i) => {
+    const hasNext = i < n - 1;
+    const gap = hasNext ? gaps[i] : null;
+    const linked = hasNext && gap === 0;
+
     const item = document.createElement('div');
-    item.className = 't-item';
-    item.style.animationDelay = (i * 0.07) + 's';
+    item.className = 't-item' + (linked ? ' no-gap-bottom' : (!hasNext ? ' no-line-bottom' : ''));
+    item.style.animationDelay = (i * 0.06) + 's';
 
     const dur = durationHours(c.start, c.end);
     const durLabel = (dur % 1 === 0 ? dur : dur.toFixed(1)) + ' ساعت';
 
     item.innerHTML = `
       <div class="t-rail">
-        <div class="t-dot" style="color:${c.color}"></div>
-        <div class="t-line"></div>
+        <div class="t-dot${dotFilled[i] ? ' filled' : ''}" style="color:${c.color}"></div>
+        ${hasNext ? `<div class="t-line${linked ? ' linked' : ''}" style="color:${c.color}"></div>` : ''}
       </div>
       <div class="t-card">
         <div class="row1">
@@ -379,6 +435,17 @@ function renderTimeline() {
     `;
     item.querySelector('.t-card').addEventListener('click', () => openModal(c));
     timelineEl.appendChild(item);
+
+    if (hasNext && gap > 0) {
+      const idle = document.createElement('div');
+      idle.className = 't-item idle-item' + (i === n - 2 ? '' : '');
+      idle.style.animationDelay = (i * 0.06 + 0.03) + 's';
+      idle.innerHTML = `
+        <div class="t-rail"><div class="t-line"></div></div>
+        <div class="idle-tile">⏳ ${formatGap(gap)} زمان خالی</div>
+      `;
+      timelineEl.appendChild(idle);
+    }
   });
 }
 
@@ -394,6 +461,7 @@ function openModal(c) {
   document.getElementById('mTeacher').textContent = c.teacher;
   document.getElementById('mTime').textContent = c.day + '، ساعت ' + c.start + ' تا ' + c.end;
   document.getElementById('mFaculty').textContent = FACULTY;
+  document.getElementById('mUnits').textContent = c.units + ' واحد';
   document.getElementById('mExamDate').textContent = c.exam;
   document.getElementById('mExamTime').textContent = c.examTime;
   modalBar.style.background = c.color;
@@ -406,7 +474,49 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlay.cl
 // ---- Print
 document.getElementById('printBtn').addEventListener('click', () => window.print());
 
-// ---- Subtle network background (ties into the "شبکه" subject of the courses)
+// ---- Dark mode toggle
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+});
+
+// ---- Live Jalali date + 24h time box
+function gregorianToJalali(gy, gm, gd) {
+  const g_d_m = [0,31,59,90,120,151,181,212,243,273,304,334];
+  const gy2 = (gm > 2) ? (gy + 1) : gy;
+  let days = 355666 + (365 * gy) + Math.floor((gy2 + 3) / 4) - Math.floor((gy2 + 99) / 100) + Math.floor((gy2 + 399) / 400) + gd + g_d_m[gm - 1];
+  let jy = -1595 + (33 * Math.floor(days / 12053));
+  days %= 12053;
+  jy += 4 * Math.floor(days / 1461);
+  days %= 1461;
+  if (days > 365) {
+    jy += Math.floor((days - 1) / 365);
+    days = (days - 1) % 365;
+  }
+  let jm, jd;
+  if (days < 186) {
+    jm = 1 + Math.floor(days / 31);
+    jd = 1 + (days % 31);
+  } else {
+    jm = 7 + Math.floor((days - 186) / 30);
+    jd = 1 + ((days - 186) % 30);
+  }
+  return [jy, jm, jd];
+}
+const FA_DAY_NAMES = {0:"یک‌شنبه",1:"دوشنبه",2:"سه‌شنبه",3:"چهارشنبه",4:"پنج‌شنبه",5:"جمعه",6:"شنبه"};
+function pad(n) { return String(n).padStart(2, '0'); }
+function updateClock() {
+  const now = new Date();
+  const [jy, jm, jd] = gregorianToJalali(now.getFullYear(), now.getMonth() + 1, now.getDate());
+  document.getElementById('dDate').textContent = `${jy}/${pad(jm)}/${pad(jd)}`;
+  document.getElementById('dDay').textContent = `(${FA_DAY_NAMES[now.getDay()]})`;
+  document.getElementById('dTime').textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// ---- Subtle network background
 const canvas = document.getElementById('netbg');
 const ctx = canvas.getContext('2d');
 let W, H, particles;
@@ -419,6 +529,9 @@ function initParticles() {
   }));
 }
 function step() {
+  const isDark = document.body.classList.contains('dark');
+  const lineColor = isDark ? 'rgba(110,168,254,' : 'rgba(47,111,206,';
+  const dotColor = isDark ? 'rgba(150,190,255,0.4)' : 'rgba(12,47,94,0.3)';
   ctx.clearRect(0, 0, W, H);
   particles.forEach(p => {
     p.x += p.vx; p.y += p.vy;
@@ -431,12 +544,12 @@ function step() {
       const dx = a.x - b.x, dy = a.y - b.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
       if (dist < 130) {
-        ctx.strokeStyle = 'rgba(47,111,206,' + (0.10 * (1 - dist / 130)) + ')';
+        ctx.strokeStyle = lineColor + (0.10 * (1 - dist / 130)) + ')';
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       }
     }
-    ctx.fillStyle = 'rgba(12,47,94,0.3)';
+    ctx.fillStyle = dotColor;
     ctx.beginPath(); ctx.arc(particles[i].x, particles[i].y, 1.5, 0, Math.PI * 2); ctx.fill();
   }
   requestAnimationFrame(step);
