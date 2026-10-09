@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>برنامه هفتگی - دانشکده دادبین کرمان</title>
 <style>
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/vazirmatn/33.0.3/Vazirmatn-font-face.css');
 :root{--bg:#F0F0F0;--ink:#121212;--red:#D02020;--blue:#1040C0;--yel:#F0C020;--mut:#E0E0E0;--b:2px;--s:4px;--sec:48px 16px}
@@ -128,6 +129,327 @@ footer .logo .shape{border-color:#fff}
 @media(max-width:560px){.sg{grid-template-columns:1fr}.st{border-inline-end:0;border-bottom:var(--b) solid var(--ink)}.st:last-child{border:0}.st:nth-child(2){border-bottom:var(--b) solid var(--ink)}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 @media print{nav,.hero,.stats,.red,.blue,.cta,footer,.ctl,#faqS{display:none!important}.sheet{display:block!important}.grid{display:none!important}body{background:#fff}.sec{padding:12px}}
+=======
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/vazirmatn/33.0.3/Vazirmatn-font-face.css');
+
+  :root {
+    --page-bg: #f2f6fb;
+    --navy: #0c2f5e;
+    --navy-2: #143f7a;
+    --blue: #2f6fce;
+    --ice: #eef4fc;
+    --line: #dde7f5;
+    --ink: #16212f;
+    --muted: #6b7a8d;
+    --gold: #c9922c;
+    --paper: #ffffff;
+    --accent-text: #0c2f5e;
+  }
+  body.dark {
+    --page-bg: #0a121f;
+    --ice: #17233a;
+    --line: #263652;
+    --ink: #e7edf8;
+    --muted: #93a1b8;
+    --paper: #111b2c;
+    --accent-text: #6ea8fe;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--page-bg);
+    font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+    color: var(--ink);
+    direction: rtl;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  body { min-height: 100vh; position: relative; overflow-x: hidden; }
+  #netbg { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.45; }
+  .wrap {
+    position: relative; z-index: 1;
+    max-width: 620px; margin: 0 auto;
+    padding: 32px 18px 60px 18px;
+  }
+
+  /* Header */
+  .header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+    border-radius: 20px;
+    box-shadow: 0 18px 40px -18px rgba(12,47,94,0.55);
+    opacity: 0; transform: translateY(-14px);
+    animation: dropIn 0.55s cubic-bezier(.22,.9,.35,1) 0.05s forwards;
+    position: relative;
+  }
+  .header img { width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); }
+  .header-text h1 { margin: 0 0 3px 0; font-size: 18px; font-weight: 700; color: #fff; }
+  .header-text p { margin: 0; font-size: 12.5px; color: #c3d5ef; }
+  @keyframes dropIn { to { opacity: 1; transform: translateY(0); } }
+
+  .theme-toggle {
+    margin-inline-start: auto;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .theme-toggle:hover { background: rgba(255,255,255,0.24); transform: scale(1.06); }
+
+  /* Live date/time box */
+  .datebox {
+    margin-top: 14px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 11px 16px;
+    opacity: 0; animation: fadeIn 0.5s ease 0.18s forwards;
+  }
+  .datebox .d-date { font-size: 13px; font-weight: 700; color: var(--accent-text); font-variant-numeric: tabular-nums; }
+  .datebox .d-day { font-size: 12px; color: var(--muted); }
+  .datebox .d-sep { width: 1px; height: 16px; background: var(--line); }
+  .datebox .d-time { font-size: 14px; font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; letter-spacing: 0.5px; }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* Stats */
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 10px; margin-top: 14px;
+    opacity: 0; animation: fadeIn 0.5s ease 0.28s forwards;
+  }
+  .stat {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 14px; padding: 12px 10px; text-align: center;
+  }
+  .stat .num { font-size: 18px; font-weight: 700; color: var(--accent-text); display: block; }
+  .stat .lbl { font-size: 10.5px; color: var(--muted); margin-top: 2px; display: block; }
+
+  /* Day tabs */
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 22px; margin-bottom: 18px;
+  }
+  .tab {
+    flex: 1 1 auto;
+    padding: 9px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    white-space: nowrap;
+  }
+  .tab:hover { transform: translateY(-1px); }
+  .tab.active {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+    box-shadow: 0 8px 18px -8px rgba(12,47,94,0.5);
+  }
+  .tab .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 19px; height: 19px; padding: 0 5px;
+    border-radius: 999px;
+    font-size: 10.5px; font-weight: 700;
+    background: var(--gold); color: #fff;
+  }
+  .tab.active .badge { background: rgba(255,255,255,0.9); color: var(--navy); }
+  .tab .today-mark {
+    position: absolute; top: -4px; left: -4px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #e0524b;
+    border: 2px solid var(--page-bg);
+  }
+
+
+  /* View controls */
+  .view-controls {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    margin-top: 22px; margin-bottom: 12px;
+  }
+  .view-label { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .view-toggle {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+    border-radius: 999px; padding: 7px 10px 7px 8px; cursor: pointer;
+    font-family: inherit; font-size: 11.5px; font-weight: 700;
+    transition: .2s ease;
+  }
+  .view-toggle:hover { border-color: var(--blue); transform: translateY(-1px); }
+  .toggle-track {
+    width: 34px; height: 19px; border-radius: 999px; background: var(--line);
+    position: relative; transition: background .2s ease;
+  }
+  .toggle-track::after {
+    content: ''; position: absolute; top: 3px; right: 3px; width: 13px; height: 13px;
+    border-radius: 50%; background: var(--paper); box-shadow: 0 1px 3px rgba(0,0,0,.22);
+    transition: transform .2s ease;
+  }
+  .view-toggle.active .toggle-track { background: var(--navy); }
+  .view-toggle.active .toggle-track::after { transform: translateX(-15px); }
+  .chart-mode .wrap { max-width: 1220px; }
+  .chart-mode #tabs { display: none; }
+
+  /* Spreadsheet view */
+  .weekly-chart-wrap { display:none; margin-top:8px; background:var(--paper); border:1px solid var(--line); border-radius:12px; overflow:auto; box-shadow:0 12px 30px -22px rgba(12,47,94,.45); }
+  .chart-mode .weekly-chart-wrap { display:block; }
+  .chart-mode #timeline { display:none; }
+  .weekly-chart { min-width:980px; padding:10px; direction:rtl; }
+  .chart-summary { direction:rtl; display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:10px; }
+  .chart-summary-item { border:1px solid var(--line); padding:7px 8px; background:var(--ice); text-align:center; }
+  .chart-summary-item .n { display:block; font-size:16px; font-weight:900; font-variant-numeric:tabular-nums; color:var(--accent-text); }
+  .chart-summary-item .l { display:block; margin-top:2px; font-size:9px; color:var(--muted); }
+  .spreadsheet { width:100%; border-collapse:collapse; table-layout:fixed; direction:rtl; font-variant-numeric:tabular-nums; }
+  .spreadsheet th, .spreadsheet td { border:1px solid var(--line); padding:7px 6px; font-size:10px; line-height:1.45; vertical-align:middle; }
+  .spreadsheet th { background:var(--ice); color:var(--accent-text); font-weight:900; text-align:center; white-space:nowrap; }
+  .spreadsheet td { background:var(--paper); }
+  .spreadsheet tbody tr:hover td { background:var(--ice); }
+  .spreadsheet .num { text-align:center; direction:ltr; }
+  .spreadsheet .course-name { font-weight:800; cursor:pointer; }
+  .spreadsheet .course-name:hover { color:var(--blue); }
+  .spreadsheet .day { font-weight:800; white-space:nowrap; }
+  .spreadsheet .teacher { white-space:nowrap; }
+  .spreadsheet .empty { text-align:center; color:var(--muted); padding:20px; }
+  .sheet-title { font-size:12px; font-weight:900; color:var(--accent-text); margin:0 0 8px; }
+  .sheet-note { margin-top:8px; font-size:9px; color:var(--muted); text-align:right; }
+  @media (max-width:700px) { .chart-mode .wrap{max-width:100%;}.weekly-chart{min-width:980px}.chart-summary{grid-template-columns:repeat(4,140px)} }
+  @media print { .view-controls{display:none!important}.chart-mode .weekly-chart-wrap{display:block!important}.chart-mode #timeline{display:none!important} }
+
+  /* Timeline */
+  .timeline { position: relative; min-height: 60px; }
+  .empty-day {
+    text-align: center; color: var(--muted); font-size: 13px;
+    padding: 30px 0;
+  }
+  .t-item {
+    display: flex; gap: 14px;
+    position: relative;
+    padding-bottom: 22px;
+    opacity: 0; transform: translateY(10px);
+    animation: itemIn 0.4s cubic-bezier(.22,1,.4,1) forwards;
+  }
+  .t-item.no-gap-bottom { padding-bottom: 4px; }
+  .t-item.no-line-bottom { padding-bottom: 0; }
+  @keyframes itemIn { to { opacity: 1; transform: translateY(0); } }
+
+  .t-rail { display: flex; flex-direction: column; align-items: center; width: 14px; flex-shrink: 0; }
+  .t-dot {
+    width: 13px; height: 13px; border-radius: 50%;
+    border: 3px solid var(--page-bg);
+    background: var(--paper);
+    box-shadow: 0 0 0 2px currentColor;
+    margin-top: 4px; flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+  .t-dot.filled { background: currentColor; }
+  .t-line { flex: 1; width: 2px; background: var(--line); margin-top: 4px; }
+  .t-line.linked { width: 3px; background: var(--gold); }
+
+  .t-card {
+    flex: 1;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 13px 15px;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .t-card:hover {
+    transform: translateX(-3px);
+    box-shadow: 0 10px 24px -14px rgba(12,47,94,0.35);
+    border-color: var(--blue);
+  }
+  .t-card .row1 { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .t-card h3 { margin: 0; font-size: 14px; font-weight: 700; color: var(--ink); }
+  .t-card .time-chip {
+    font-size: 11px; font-weight: 700; color: #fff;
+    padding: 3px 9px; border-radius: 999px; flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .t-card .meta {
+    margin-top: 6px; font-size: 12px; color: var(--muted);
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
+  .t-card .meta .dur {
+    background: var(--ice); color: var(--accent-text);
+    padding: 2px 8px; border-radius: 999px; font-size: 10.5px; font-weight: 600;
+  }
+
+  /* Idle-time slim tile */
+  .idle-item { padding-bottom: 10px; }
+  .idle-item .t-line { background: var(--line); }
+  .idle-tile {
+    flex: 1;
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    padding: 5px 12px;
+    font-size: 11px;
+    color: var(--muted);
+    background: transparent;
+    display: flex; align-items: center;
+  }
+
+  /* Modal */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(6,14,26,0.5);
+    backdrop-filter: blur(3px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 50; opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease; padding: 20px;
+  }
+  .overlay.show { opacity: 1; pointer-events: auto; }
+  .modal {
+    background: var(--paper); border-radius: 18px; width: 100%; max-width: 380px;
+    padding: 26px 24px 22px 24px; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.5);
+    transform: translateY(18px) scale(0.97);
+    transition: transform 0.3s cubic-bezier(.22,1.1,.4,1);
+    position: relative;
+  }
+  .overlay.show .modal { transform: translateY(0) scale(1); }
+  .modal .bar { position: absolute; top: 0; right: 0; left: 0; height: 5px; border-radius: 18px 18px 0 0; }
+  .modal h2 { margin: 10px 0 2px 0; font-size: 17px; color: var(--accent-text); }
+  .modal .sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+  .modal-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 13px; }
+  .modal-row:first-of-type { border-top: none; }
+  .modal-row .k { color: var(--muted); min-width: 78px; flex-shrink: 0; font-size: 12px; }
+  .modal-row .v { color: var(--ink); font-weight: 600; }
+  .modal-row .v.exam { color: var(--gold); }
+  .close-btn {
+    position: absolute; top: 14px; left: 14px; width: 28px; height: 28px; border-radius: 50%;
+    border: none; background: var(--ice); color: var(--accent-text); font-size: 14px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .close-btn:hover { background: var(--line); transform: rotate(90deg); }
+
+  .footer-row {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    margin-top: 24px;
+  }
+  .print-btn {
+    border: 1px solid var(--line); background: var(--paper); color: var(--accent-text);
+    font-size: 12px; font-weight: 600; padding: 8px 16px; border-radius: 999px;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .print-btn:hover { background: var(--ice); transform: translateY(-1px); }
+  .footer { text-align: center; font-size: 11px; color: var(--muted); margin-top: 10px; }
+
+  @media print {
+    #netbg, .tabs, .print-btn, .theme-toggle { display: none !important; }
+    body { background: #fff; }
+  }
+>>>>>>> 4440669cc1f11dd185b52667a7e1e15f8fd44c9c
 </style>
 </head>
 <body>
@@ -155,9 +477,31 @@ footer .logo .shape{border-color:#fff}
   <div class="sheet" id="sheet"></div>
 </div></section>
 
+<<<<<<< HEAD
 <section class="sec red"><div class="in"><h2 class="t">بار هفتگی</h2><div class="lg" id="load"></div></div></section>
 
 <section class="sec blue"><div class="in"><h2 class="t">برنامه امتحان‌ها</h2><div class="ex" id="ex"></div></div></section>
+=======
+  <div class="view-controls">
+    <span class="view-label">نمایش برنامه</span>
+    <button class="view-toggle" id="chartToggle" type="button" aria-pressed="false">
+      <span class="toggle-track"></span>
+      <span id="chartToggleText">نمای روزانه</span>
+    </button>
+  </div>
+
+  <div class="timeline" id="timeline"></div>
+
+  <div class="weekly-chart-wrap" id="weeklyChartWrap">
+    <div class="weekly-chart" id="weeklyChart"></div>
+  </div>
+
+  <div class="footer-row">
+    <button class="print-btn" id="printBtn">🖨 چاپ / ذخیره PDF</button>
+  </div>
+  <div class="footer">دانشگاه ملی مهارت &middot; نیم‌سال جاری</div>
+</div>
+>>>>>>> 4440669cc1f11dd185b52667a7e1e15f8fd44c9c
 
 <section class="sec" id="faqS"><div class="in"><h2 class="t">پرسش‌های پرتکرار</h2><div class="fq" id="faq"></div></div></section>
 
@@ -215,6 +559,7 @@ function renderTabs(){
     b.setAttribute("role","tab");b.setAttribute("aria-selected",d===active);b.innerHTML=d+"<i>"+COURSES.filter(c=>c.day===d).length+"</i>";
     b.onclick=()=>{active=d;renderTabs();renderGrid()};$("tabs").appendChild(b)});
 }
+<<<<<<< HEAD
 function renderGrid(){
   const cs=COURSES.filter(c=>c.day===active).sort(byTime),G=$("grid");G.innerHTML="";
   if(!cs.length){G.innerHTML='<div class="empty">این روز کلاسی برگزار نمی‌شود.</div>';return}
@@ -224,6 +569,116 @@ function renderGrid(){
     <h3>${c.name}</h3><p>${c.teacher}</p><div class="mt"><span>${num(hrs(c))} ساعت</span><span>${c.units} واحد</span>${live?'<span>در حال برگزاری</span>':""}</div>`;
     el.onclick=()=>openModal(c);G.appendChild(el);
     const nx=cs[i+1];if(nx){const g=mins(nx.start)-mins(c.end);if(g>0){const p=document.createElement("div");p.className="gp";p.textContent="فاصله: "+fmt(g);G.appendChild(p)}}
+=======
+
+// ---- Stats bar
+const totalClasses = COURSES.length;
+const totalHours = COURSES.reduce((s, c) => s + durationHours(c.start, c.end), 0);
+const totalUnits = COURSES.reduce((s, c) => s + c.units, 0);
+const perDay = {};
+DAYS.forEach(d => perDay[d] = COURSES.filter(c => c.day === d).length);
+
+document.getElementById('statsBar').innerHTML = `
+  <div class="stat"><span class="num">${totalClasses}</span><span class="lbl">درس این ترم</span></div>
+  <div class="stat"><span class="num">${totalHours}</span><span class="lbl">ساعت کلاس در هفته</span></div>
+  <div class="stat"><span class="num">${totalUnits}</span><span class="lbl">واحد انتخابی</span></div>
+`;
+
+// ---- Today detection
+const jsDay = new Date().getDay();
+const jsToFa = {6:"شنبه", 0:"یک‌شنبه", 1:"دوشنبه", 2:"سه‌شنبه", 3:"چهارشنبه"};
+const todayFa = jsToFa[jsDay] || null;
+
+
+// ---- Full weekly spreadsheet view toggle
+const chartToggle = document.getElementById('chartToggle');
+const chartToggleText = document.getElementById('chartToggleText');
+const weeklyChart = document.getElementById('weeklyChart');
+
+function renderWeeklyChart() {
+  weeklyChart.innerHTML = '';
+  const courses = [...COURSES].sort((a,b) => DAYS.indexOf(a.day)-DAYS.indexOf(b.day) || toMinutes(a.start)-toMinutes(b.start));
+
+  const summary = document.createElement('div');
+  summary.className = 'chart-summary';
+  const totalHoursExact = courses.reduce((s,c)=>s+durationHours(c.start,c.end),0);
+  const summaryData = [
+    [courses.length,'تعداد کلاس'],
+    [totalHoursExact.toFixed(1).replace('.0',''),'ساعت کلاس هفتگی'],
+    [totalUnits,'مجموع واحدها'],
+    [new Set(courses.map(c=>c.teacher)).size,'تعداد استاد']
+  ];
+  summary.innerHTML = summaryData.map(x=>`<div class="chart-summary-item"><span class="n">${x[0]}</span><span class="l">${x[1]}</span></div>`).join('');
+  weeklyChart.appendChild(summary);
+
+  const title = document.createElement('div');
+  title.className = 'sheet-title';
+  title.textContent = 'جدول کامل هفتگی';
+  weeklyChart.appendChild(title);
+
+  const table = document.createElement('table');
+  table.className = 'spreadsheet';
+  table.innerHTML = `
+    <colgroup>
+      <col style="width:45px"><col style="width:85px"><col style="width:235px"><col style="width:75px"><col style="width:75px"><col style="width:75px"><col style="width:55px"><col style="width:145px"><col style="width:90px"><col style="width:75px">
+    </colgroup>
+    <thead><tr>
+      <th>#</th><th>روز</th><th>نام درس</th><th>شروع</th><th>پایان</th><th>مدت</th><th>واحد</th><th>استاد</th><th>تاریخ امتحان</th><th>ساعت امتحان</th>
+    </tr></thead>
+    <tbody></tbody>`;
+
+  const tbody = table.querySelector('tbody');
+  courses.forEach((c,i)=>{
+    const tr=document.createElement('tr');
+    const duration=durationHours(c.start,c.end);
+    tr.innerHTML=`
+      <td class="num">${i+1}</td>
+      <td class="day">${c.day}</td>
+      <td class="course-name">${c.name}</td>
+      <td class="num">${c.start}</td>
+      <td class="num">${c.end}</td>
+      <td class="num">${duration % 1 === 0 ? duration : duration.toFixed(1)} ساعت</td>
+      <td class="num">${c.units}</td>
+      <td class="teacher">${c.teacher}</td>
+      <td class="num">${c.exam || '—'}</td>
+      <td class="num">${c.examTime || '—'}</td>`;
+    tr.querySelector('.course-name').addEventListener('click',()=>openModal(c));
+    tbody.appendChild(tr);
+  });
+
+  weeklyChart.appendChild(table);
+  const note=document.createElement('div');
+  note.className='sheet-note';
+  note.textContent='نمای عددی کامل · مرتب‌شده بر اساس روز و ساعت شروع · برای دیدن جزئیات، روی نام درس کلیک کنید';
+  weeklyChart.appendChild(note);
+}
+
+chartToggle.addEventListener('click',()=>{
+  const on=document.body.classList.toggle('chart-mode');
+  chartToggle.classList.toggle('active',on);
+  chartToggle.setAttribute('aria-pressed',String(on));
+  chartToggleText.textContent=on?'نمای جدولی':'نمای روزانه';
+  if(on) renderWeeklyChart();
+});
+
+// ---- Tabs
+const tabsEl = document.getElementById('tabs');
+let activeDay = todayFa && DAYS.includes(todayFa) ? todayFa : DAYS[0];
+
+function renderTabs() {
+  tabsEl.innerHTML = '';
+  DAYS.forEach(d => {
+    const btn = document.createElement('div');
+    btn.className = 'tab' + (d === activeDay ? ' active' : '');
+    btn.innerHTML = '<span>' + d + '</span><span class="badge">' + perDay[d] + '</span>';
+    if (d === todayFa) {
+      const mark = document.createElement('div');
+      mark.className = 'today-mark';
+      btn.appendChild(mark);
+    }
+    btn.addEventListener('click', () => { activeDay = d; renderTabs(); renderTimeline(); });
+    tabsEl.appendChild(btn);
+>>>>>>> 4440669cc1f11dd185b52667a7e1e15f8fd44c9c
   });
 }
 $("sheet").innerHTML=`<table><thead><tr><th>روز</th><th>درس</th><th>کد</th><th>ساعت</th><th>مدت</th><th>واحد</th><th>استاد</th><th>امتحان</th></tr></thead><tbody>${
