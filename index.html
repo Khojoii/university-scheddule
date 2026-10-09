@@ -89,7 +89,7 @@ td{padding:11px 12px;border-bottom:2px solid var(--ink)}tbody tr:hover{backgroun
 .ld{background:#fff;color:var(--ink);border:var(--b) solid var(--ink);box-shadow:var(--s) var(--s) 0 0 var(--ink);padding:18px}
 .ld h3{font-size:18px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .ld h3 span{background:var(--yel);border:2px solid var(--ink);border-radius:9999px;padding:0 12px;font-size:14px}
-.bars{display:flex;gap:4px;margin-top:12px;height:28px;direction:ltr}.bars i{flex:1;border:2px solid var(--ink);background:var(--mut)}.bars i.f{background:var(--blue)}
+.bars{display:flex;gap:4px;margin-top:12px;height:28px}.bars i{flex:1;border:2px solid var(--ink);background:var(--mut)}.bars i.f{background:var(--blue)}
 /* exams (blue) */
 .blue{background:var(--blue);color:#fff}
 .ex{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
@@ -142,7 +142,7 @@ footer .logo .shape{border-color:#fff}
   </div>
   <div class="hr" aria-hidden="true">
     <div class="a"></div><div class="b"></div><div class="tr tri"></div>
-    <div class="cen"><div><span id="dDay"></span><b class="ltr" id="dTime"></b><span class="ltr" id="dDate"></span></div></div>
+    <div class="cen"><div><span id="dDay"></span><b id="dTime"></b><span id="dDate"></span></div></div>
   </div>
 </header>
 
@@ -220,14 +220,14 @@ function renderGrid(){
   if(!cs.length){G.innerHTML='<div class="empty">این روز کلاسی برگزار نمی‌شود.</div>';return}
   cs.forEach((c,i)=>{
     const live=isLive(c),el=document.createElement("button");el.type="button";el.className="card"+(live?" on":"");el.dataset.code=c.code;
-    el.innerHTML=`<span class="dc" style="${decor(i)};${live?"border:2px solid #fff":""}"></span><span class="tm ltr" style="${live?"background:#fff;color:#121212":""}">${c.start}–${c.end}</span>
+    el.innerHTML=`<span class="dc" style="${decor(i)};${live?"border:2px solid #fff":""}"></span><span class="tm" style="${live?"background:#fff;color:#121212":""}">${c.start} تا ${c.end}</span>
     <h3>${c.name}</h3><p>${c.teacher}</p><div class="mt"><span>${num(hrs(c))} ساعت</span><span>${c.units} واحد</span>${live?'<span>در حال برگزاری</span>':""}</div>`;
     el.onclick=()=>openModal(c);G.appendChild(el);
     const nx=cs[i+1];if(nx){const g=mins(nx.start)-mins(c.end);if(g>0){const p=document.createElement("div");p.className="gp";p.textContent="فاصله: "+fmt(g);G.appendChild(p)}}
   });
 }
 $("sheet").innerHTML=`<table><thead><tr><th>روز</th><th>درس</th><th>کد</th><th>ساعت</th><th>مدت</th><th>واحد</th><th>استاد</th><th>امتحان</th></tr></thead><tbody>${
-sorted.map(c=>`<tr><td>${c.day}</td><td><button class="lnk" data-code="${c.code}" type="button">${c.name}</button></td><td>${c.code}</td><td class="ltr">${c.start}–${c.end}</td><td>${num(hrs(c))} ساعت</td><td>${c.units}</td><td>${c.teacher}</td><td>${examTxt(c)}</td></tr>`).join("")}</tbody></table>`;
+sorted.map(c=>`<tr><td>${c.day}</td><td><button class="lnk" data-code="${c.code}" type="button">${c.name}</button></td><td>${c.code}</td><td>${c.start} تا ${c.end}</td><td>${num(hrs(c))} ساعت</td><td>${c.units}</td><td>${c.teacher}</td><td>${examTxt(c)}</td></tr>`).join("")}</tbody></table>`;
 bind($("sheet"));
 $("vb").onclick=()=>{const on=document.body.classList.toggle("tm");$("vb").setAttribute("aria-pressed",on);$("vb").textContent=on?"نمای روزانه":"جدول هفتگی"};
 
